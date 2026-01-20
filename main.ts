@@ -1,3 +1,4 @@
+let strip: neopixel.Strip = null
 let achteruit = 0
 let rechts = 0
 let links = 0
@@ -27,21 +28,12 @@ basic.forever(function () {
             `)
     }
     if (IR_waarde == links) {
-        maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 100)
-        basic.pause(500)
-        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 100)
-        basic.showLeds(`
-            . . # . .
-            . # . . .
-            # # # # #
-            . # . . .
-            . . # . .
-            `)
+        maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, 50)
+        maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, 50)
     }
     if (IR_waarde == rechts) {
-        maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 100)
-        basic.pause(500)
-        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 100)
+        maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 50)
+        maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, 50)
         basic.showLeds(`
             . . # . .
             . . . # .
@@ -70,4 +62,8 @@ basic.forever(function () {
 })
 basic.forever(function () {
     IR_waarde = IR.IR_read()
+})
+basic.forever(function () {
+    strip = neopixel.create(DigitalPin.P15, 4, NeoPixelMode.RGB)
+    strip.showColor(neopixel.colors(NeoPixelColors.Purple))
 })
